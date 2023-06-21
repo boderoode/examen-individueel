@@ -16,3 +16,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+//route naar de index van allergeen
+Route::get('/allergeen', 'App\Http\Controllers\AllergieController@index')->name('allergeen.index');
