@@ -67,9 +67,6 @@
                                     <td>{{ $item->aantal_kinderen }}</td>
                                     <td>{{ $item->aantal_babys }}</td>
                                     <td>{{ $item->IsVertegenwoordiger }}</td>
-                                    <td>
-                                        {{-- add a empty bootstrap button --}}
-                                    </td>
                                 </tr>
                             @endforeach
                         @endif
