@@ -60,7 +60,8 @@ class AllergieController extends Controller
      */
     public function edit(Allergie $allergie)
     {
-        //
+        
+        return view('allergeen.edit', ['allergie' => $allergie]);
     }
 
     /**
@@ -68,7 +69,7 @@ class AllergieController extends Controller
      */
     public function update(Request $request, Allergie $allergie)
     {
-        //
+        
     }
 
     /**
