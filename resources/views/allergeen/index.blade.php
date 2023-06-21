@@ -67,6 +67,9 @@
                                     <td>{{ $item->aantal_kinderen }}</td>
                                     <td>{{ $item->aantal_babys }}</td>
                                     <td>{{ $item->IsVertegenwoordiger }}</td>
+                                    <td>
+                                        <a href="{{ route('allergeen.show', $item->id) }}" class="btn btn-primary">Bekijk</a>
+                                    </td>
                                 </tr>
                             @endforeach
                         @endif
