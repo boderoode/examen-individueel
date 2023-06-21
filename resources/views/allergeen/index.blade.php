@@ -55,7 +55,7 @@
                         @if ($allergie->isEmpty())
                             <tr>
                                 <td colspan="7" class="text-center"><div class="alert alert-warning" role="alert">
-                                    A simple warning alert—check it out!    
+                                   Er zijn geen gezinnen gevonden met deze allergie  
                             </div></td>
                             </tr>
                         @else
