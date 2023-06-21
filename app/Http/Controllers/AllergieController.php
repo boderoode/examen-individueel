@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Allergie;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AllergieController extends Controller
 {
@@ -50,9 +51,17 @@ class AllergieController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Allergie $allergie)
+    public function show(string $id)
     {
-        //
+        $gezin = DB::table('gezin')
+        ->join('persoon', 'gezin.id', '=', 'persoon.gezin_id')
+        ->join('allergie_per_persoon', 'persoon.id', '=', 'allergie_per_persoon.persoon_id')
+        ->join('allergies', 'allergie_per_persoon.allergies_id', '=', 'allergies.id')
+        ->select('allergies.allergie_naam', 'allergies.allergie_omschrijving', 'gezin.gezin_naam', 'gezin.aantal_volwassenen', 'gezin.aantal_kinderen', 'gezin.aantal_babys', 'persoon.IsVertegenwoordiger')
+        ->where('gezin.id', $id)
+        ->first();
+
+        return view('allergeen.show', ['allergie' => $gezin]);
     }
 
     /**
@@ -60,7 +69,7 @@ class AllergieController extends Controller
      */
     public function edit(Allergie $allergie)
     {
-        
+
         return view('allergeen.edit', ['allergie' => $allergie]);
     }
 
@@ -69,7 +78,6 @@ class AllergieController extends Controller
      */
     public function update(Request $request, Allergie $allergie)
     {
-        
     }
 
     /**

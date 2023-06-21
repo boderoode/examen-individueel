@@ -42,10 +42,6 @@
                                     <td>{{ $allergie->babys }}</td>
                                     <td>{{ $allergie->vertegenwoordiger }}</td>
                                     <td>
-                                        <a href="{{ route('allergeen.edit', $allergie->id) }}" class="btn btn-warning">Wijzig</a>
-                                        <form action="{{ route('allergeen.destroy', $allergie->id) }}" method="POST" class="d-inline-block">
-                                            <button type="submit" class="btn btn-danger">Verwijder</button>
-                                        </form>
                                     </td>
                                 </tr>
                             @endforeach

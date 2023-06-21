@@ -68,9 +68,10 @@
                                     <td>{{ $item->aantal_babys }}</td>
                                     <td>{{ $item->IsVertegenwoordiger }}</td>
                                     <td>
-                                        {{--Could you make a button that links to the edit page with a book icon from bootstrap--}}
-                                        <a href="{{ route('allergeen.edit', $item->id) }}" class="btn btn-primary">Edit</a>
-                                        {{--Could you make a button that links to the delete page with a trashcan icon from bootstrap--}}
+                                        
+
+
+                                        
                                     </td>
                                 </tr>
                             @endforeach

@@ -20,5 +20,5 @@ Route::get('/', function () {
 //route naar de index van allergeen
 Route::get('/allergeen', 'App\Http\Controllers\AllergieController@index')->name('allergeen.index');
 
-//route naar de show van allergeen
-Route::get('/allergeen/{id}', 'App\Http\Controllers\AllergieController@show')->name('allergeen.show');    
+//route naar de show van de juist id
+Route::get('/allergeen/show/{id}', 'App\Http\Controllers\AllergieController@show')->name('allergeen.show');
