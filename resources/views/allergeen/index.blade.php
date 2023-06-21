@@ -54,7 +54,9 @@
                     <tbody>
                         @if ($allergie->isEmpty())
                             <tr>
-                                <td colspan="7" class="text-center">Er zijn geen gezinnen bekend die de geselecteerde allergie hebben.</td>
+                                <td colspan="7" class="text-center"><div class="alert alert-warning" role="alert">
+                                    A simple warning alert—check it out!    
+                            </div></td>
                             </tr>
                         @else
                             @foreach ($allergie as $item)
