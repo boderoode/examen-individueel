@@ -15,7 +15,7 @@ class DatabaseSeeder extends Seeder
     {
 
 
-
+        //Vult de allergies tabel met data
 
         DB::table('allergies')->insert([
             [
@@ -79,6 +79,8 @@ class DatabaseSeeder extends Seeder
                 'datum_gewijzigd' => '2023-06-21 10:46:09',
             ],
         ]);
+            //vult de persoon tabel met data
+
         DB::table('persoon')->insert([
             [
                 'id' => 1,
@@ -333,6 +335,9 @@ class DatabaseSeeder extends Seeder
                 'datum_gewijzigd' => '2023-06-21 10:46:55'
             ],
         ]);
+
+        //vult de allergie_per_persoon tabel met data
+
         DB::table('allergie_per_persoon')->insert([
             [
                 'id' => 1,
@@ -452,6 +457,9 @@ class DatabaseSeeder extends Seeder
                 'datum_gewijzigd' => '2023-06-21 10:47:46'
             ]
         ]);
+
+        //vult de gezin tabel met data
+
         DB::table('gezin')->insert([
             [
                 'id' => 1,
