@@ -30,7 +30,7 @@
               <label for="naam">Allergie </label>
 
                  {{--make a option field for the baan_nummer column in the reservering table --}}
-                  <select name="baan_nummer" id="baan_nummer">
+                  <select name="naam" id="naam">
                       <option value="">Selecteer Allergie</option>
                                 <option value="soja">Soja</option>
                                 <option value="lactose">Lactose</option>
