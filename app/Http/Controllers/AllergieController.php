@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Allergie;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Http\Helpers\SharedHelper;
 
 class AllergieController extends Controller
 {
@@ -13,12 +14,17 @@ class AllergieController extends Controller
      */
     public function index(Request $request)
     {
+
+
         $naam = $request->input('naam');
 
-        $query = Allergie::join('allergie_per_persoon', 'allergies.id', '=', 'allergie_per_persoon.allergies_id')
-            ->join('persoon', 'allergie_per_persoon.persoon_id', '=', 'persoon.id')
-            ->join('gezin', 'persoon.gezin_id', '=', 'gezin.id')
-            ->select('allergies.allergie_naam', 'allergies.allergie_omschrijving', 'gezin.gezin_naam', 'gezin.aantal_volwassenen', 'gezin.aantal_kinderen', 'gezin.aantal_babys', 'persoon.IsVertegenwoordiger');
+        //the tables of allergie persoon and allergie_per_persoon needs to join with gezin
+        $query = DB::table('gezin')
+            ->join('persoon', 'gezin.id', '=', 'persoon.gezin_id')
+            ->join('allergie_per_persoon', 'persoon.id', '=', 'allergie_per_persoon.persoon_id')
+            ->join('allergies', 'allergie_per_persoon.allergies_id', '=', 'allergies.id')
+            ->select('gezin.id', 'allergies.allergie_naam', 'allergies.allergie_omschrijving', 'gezin.gezin_naam', 'gezin.gezin_omschrijving', 'persoon.voornaam', 'persoon.tussenvoegsel', 'persoon.achternaam', 'gezin.aantal_volwassenen', 'gezin.aantal_kinderen', 'gezin.aantal_babys', 'persoon.IsVertegenwoordiger');
+
 
         if ($naam) {
             $query->where('allergies.allergie_naam', $naam);
@@ -51,33 +57,50 @@ class AllergieController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(int $id)
     {
         $gezin = DB::table('gezin')
-        ->join('persoon', 'gezin.id', '=', 'persoon.gezin_id')
-        ->join('allergie_per_persoon', 'persoon.id', '=', 'allergie_per_persoon.persoon_id')
-        ->join('allergies', 'allergie_per_persoon.allergies_id', '=', 'allergies.id')
-        ->select('allergies.allergie_naam', 'allergies.allergie_omschrijving', 'gezin.gezin_naam', 'gezin.aantal_volwassenen', 'gezin.aantal_kinderen', 'gezin.aantal_babys', 'persoon.IsVertegenwoordiger')
-        ->where('gezin.id', $id)
-        ->first();
+            ->join('persoon', 'gezin.id', '=', 'persoon.gezin_id')
+            ->join('allergie_per_persoon', 'persoon.id', '=', 'allergie_per_persoon.persoon_id')
+            ->join('allergies', 'allergie_per_persoon.allergies_id', '=', 'allergies.id')
+            ->select('gezin.id', 'allergies.allergie_naam', 'allergies.allergie_omschrijving', 'gezin.gezin_naam', 'gezin.gezin_omschrijving', 'gezin.aantal_volwassenen', 'gezin.totaal_aantal_personen', 'gezin.aantal_kinderen', 'gezin.aantal_babys', 'persoon.IsVertegenwoordiger', 'persoon.voornaam', 'persoon.tussenvoegsel', 'persoon.achternaam', 'persoon.typepersoon')
+            ->where('gezin.id', $id)
+            ->get();
 
-        return view('allergeen.show', ['allergie' => $gezin]);
+
+        return view('allergeen.show', ['gezin' => $gezin]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Allergie $allergie)
+    public function edit(int $id)
     {
-
-        return view('allergeen.edit', ['allergie' => $allergie]);
+        $persoon = DB::table('persoon')
+            ->join('allergie_per_persoon', 'persoon.id', '=', 'allergie_per_persoon.persoon_id')
+            ->join('allergies', 'allergie_per_persoon.allergies_id', '=', 'allergies.id')
+            ->select('persoon.id', 'allergies.allergie_naam', 'allergies.allergie_omschrijving', 'persoon.voornaam', 'persoon.tussenvoegsel', 'persoon.achternaam', 'persoon.typepersoon')
+            ->where('persoon.id', $id)
+            ->get();
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Allergie $allergie)
+    public function update(Request $request, Allergie $allergie, $id)
     {
+        dd($allergie);
+
+        $allergie = Allergie::where('Id', $id)
+            ->update([
+                'allergie_naam'          => $request->input('allergie_naam'),
+                'IsActief'         => $request->input('IsActief') === "on",
+                'Opmerking'        => $request->input('Opmerking'),
+                'datum_gewijzigd'  => $request->input('datum_gewijzigd'),
+
+            ]);
+
+        return redirect('allergeen' . $id);
     }
 
     /**

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AllergieController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,4 +22,7 @@ Route::get('/', function () {
 Route::get('/allergeen', 'App\Http\Controllers\AllergieController@index')->name('allergeen.index');
 
 //route naar de show van de juist id
-Route::get('/allergeen/show/{id}', 'App\Http\Controllers\AllergieController@show')->name('allergeen.show');
+//Route::resource('/allergeen/show/{id}', 'App\Http\Controllers\AllergieController@show')->name('allergeen.show');
+
+//route met resource naar de controller
+Route::resource('allergeen', AllergieController::class);

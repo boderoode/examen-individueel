@@ -62,13 +62,21 @@
                             @foreach ($allergie as $item)
                                 <tr>
                                     <td>{{ $item->gezin_naam }}</td>
-                                    <td>{{ $item->allergie_omschrijving }}</td>
+                                    <td>{{ $item->gezin_omschrijving }}</td>
                                     <td>{{ $item->aantal_volwassenen }}</td>
                                     <td>{{ $item->aantal_kinderen }}</td>
                                     <td>{{ $item->aantal_babys }}</td>
-                                    <td>{{ $item->IsVertegenwoordiger }}</td>
+                                    {{-- <td>{{ $item->IsVertegenwoordiger }}</td> --}}
+                                    {{-- If IsVertegenwoordiger == 1, then show 'Ja' make the else statement that if the IsVertegenwoordiger is "Nee" dont show it --}}
+                                    
+                                    @if ($item->IsVertegenwoordiger == 1)
+                                        <td>{{ $item->voornaam }} {{ $item->tussenvoegsel }} {{ $item->achternaam }}</td>
+                                    @else 
+                                        <td>Nee</td>
+                                    @endif
                                     <td>
                                         <a href="{{ route('allergeen.show', $item->id) }}" class="btn btn-primary">Bekijk</a>
+                                           
                                     </td>
                                 </tr>
                             @endforeach

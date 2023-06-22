@@ -11,6 +11,7 @@ class Allergie extends Model
 
     protected $fillable = [
         'id',
+        'allergie_naam',
         'persoon_id',
         'gezin_id',
         'naam',
@@ -21,5 +22,4 @@ class Allergie extends Model
         'datum_aangemaakt',
         'datum_gewijzigd',
     ];
-
 }

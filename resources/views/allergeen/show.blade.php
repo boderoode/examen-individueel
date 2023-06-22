@@ -19,34 +19,49 @@
         </div>
     @endif
 
+<div class="table-responsive">
+            <table class="table table-hover table-striped table-borderless table-sm table-condensed mx-auto w-auto float-start">
+                <tbody>
+                    <tr>
+                        <th>Naam:</th>
+                        <td>{{ $gezin[0]->gezin_naam }}</td>
+                    </tr>
+                    <tr>
+                        <th>Omschrijving:</th>
+                        <td>{{ $gezin[0]->gezin_omschrijving }}</td>
+                    </tr>
+                    <tr>
+                        <th>Totaal Aantal Personen:</th>
+                        <td>{{ $gezin[0]->totaal_aantal_personen }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 
-    <thead>
+
+    <table class="table table-striped">
+                    <thead>
                         <tr>
                             <th scope="col">Naam</th>
-                            <th scope="col">Omschrijving</th>
-                            <th scope="col">Volwassenen</th>
-                            <th scope="col">Kinderen</th>
-                            <th scope="col">Baby's</th>
-                            <th scope="col">Vertegenwoordiger</th>
-                            <th scope="col">Acties</th>
+                            <th scope="col">Type persoon</th>
+                            <th scope="col">Gezinsrol</th>
+                            <th scope="col">Allergie</th>
+                            <th scope="col">Wijzig allergie</th>
                         </tr>
                     </thead>
-
                     <tbody>
-                            @foreach ($allergie as $allergie)
+                            @foreach ($gezin as $persoon)
                                 <tr>
-                                    <td>{{ $allergie->naam }}</td>
-                                    <td>{{ $allergie->omschrijving }}</td>
-                                    <td>{{ $allergie->volwassenen }}</td>
-                                    <td>{{ $allergie->kinderen }}</td>
-                                    <td>{{ $allergie->babys }}</td>
-                                    <td>{{ $allergie->vertegenwoordiger }}</td>
-                                    <td>
-                                    </td>
+                                    <td>{{ $persoon->voornaam }} {{ $persoon->tussenvoegsel }} {{ $persoon->achternaam }}</td>
+                                    <td>{{ $persoon->typepersoon }}</td>
+                                    {{-- If the IsVertegenwoordig == 1 transform into string saying "Vertegenwoordiger" Else the IsVertegenwoordiger == 0 transform into a string saying "Gezinslid"--}}
+                                    <td>{{ $persoon->IsVertegenwoordiger == 1 ? 'Vertegenwoordiger' : 'Gezinslid' }}</td>
+                                    <td>{{ $persoon->allergie_omschrijving }}</td>
+                                    <td><a href="{{ route('allergeen.edit', $persoon->id) }}" class="btn btn-primary">Wijzig</a></td>
+                                    
+                                    
                                 </tr>
                             @endforeach
-                        @endif
-
-
-    
-
+                    </tbody>
+                </table>
