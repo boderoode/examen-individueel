@@ -2,9 +2,11 @@
 
 namespace Database\Seeders;
 
+
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use App\Models\Allergie;
 
 class DatabaseSeeder extends Seeder
 {
@@ -79,7 +81,7 @@ class DatabaseSeeder extends Seeder
                 'datum_gewijzigd' => '2023-06-21 10:46:09',
             ],
         ]);
-            //vult de persoon tabel met data
+        //vult de persoon tabel met data
 
         DB::table('persoon')->insert([
             [
